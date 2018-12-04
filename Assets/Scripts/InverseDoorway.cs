@@ -8,31 +8,36 @@ public class InverseDoorway : MonoBehaviour {
     private Controller player;
 
     [SerializeField]
-    private GameObject connectedDoorway;
+    private Transform Source;
 
     [SerializeField]
-    private GameObject drawingDoorway;
+    private Transform Destination;
 
     private RenderTexture renderTexture;
+
+    private Camera cam;
 
     // Use this for initialization
     void Start()
     {
-        //transform.rotation = Quaternion.LookRotation(connectedDoorway.transform.position - drawingDoorway.transform.position);
+        // We must enforce identical FOV and aspect ratio for the effect to work.
+        cam = GetComponent<Camera>();
+        cam.aspect = player.mainCamera.aspect;
+        cam.fieldOfView = player.mainCamera.fieldOfView;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 playerPos = player.transform.position;
-        Vector3 flippedPlayer = new Vector3(playerPos.x, playerPos.y, playerPos.z);
-        Vector3 drawingPos = drawingDoorway.transform.position;
-        Vector3 offset = playerPos;
+        //Vector3 playerPos = player.transform.position;
+        //Vector3 flippedPlayer = new Vector3(playerPos.x, playerPos.y, playerPos.z);
+        //Vector3 drawingPos = drawingDoorway.transform.position;
+        //Vector3 offset = playerPos;
 
         //Vector3 flippedOffset = new Vector3(-offset.x, offset.y, -offset.z);
 
         //transform.position = connectedDoorway.transform.position + flippedPlayer - drawingPos;
-        transform.position = connectedDoorway.transform.position - drawingDoorway.transform.position + player.transform.position;
-        transform.rotation = player.mainCamera.transform.rotation;
+        //transform.position = connectedDoorway.transform.position - drawingDoorway.transform.position + player.transform.position;
+        //transform.rotation = player.mainCamera.transform.rotation;
 
 
         //Vector3 pos = connectedDoorway.transform.InverseTransformPoint(player.transform.position);
@@ -44,6 +49,18 @@ public class InverseDoorway : MonoBehaviour {
 
         //transform.localRotation = Quaternion.Euler(euler);
         //transform.localRotation = Quaternion.LookRotation(player.mainCamera.transform.forward - connectedDoorway.transform.forward, Vector3.up);
+
+        //Transform Source = drawingDoorway.transform;
+        //Transform Destination = connectedDoorway.transform;
+
+        Camera MainCamera = player.mainCamera;
+
+        Vector3 cameraPositionInSourceSpace = Source.InverseTransformPoint(MainCamera.transform.position);
+        Quaternion cameraRotationInSourceSpace = Quaternion.Inverse(Source.rotation) * MainCamera.transform.rotation;
+
+        this.transform.position = Destination.TransformPoint(cameraPositionInSourceSpace);
+        this.transform.rotation = Destination.rotation * cameraRotationInSourceSpace;
+
     }
 
     private float SignedAngle(Vector3 a, Vector3 b, Vector3 n)

@@ -10,7 +10,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{7BC5298B-4F7F-0AFF-B2B0-56909C30069E}</ProjectGuid>
+    <ProjectGuid>{E9A6A12F-3E61-40B3-7850-62B221FAA830}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -64,18 +64,20 @@
     <Compile Include="Assets\Scripts\Controller.cs" />
     <Compile Include="Assets\Scripts\InverseDoorway.cs" />
     <Compile Include="Assets\Scripts\Teleport.cs" />
+    <None Include="Assets\NewUnlitShader.shader" />
+    <None Include="Assets\Perspective2.shader" />
     <None Include="Assets\Perspective.shader" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>/Users/aleksandrovich/Documents/Unity/Noneuclidean/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>/Users/aleksandrovich/Documents/Unity/NonEuclidean/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>/Users/aleksandrovich/Documents/Unity/Noneuclidean/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>/Users/aleksandrovich/Documents/Unity/NonEuclidean/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>/Users/aleksandrovich/Documents/Unity/Noneuclidean/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>/Users/aleksandrovich/Documents/Unity/NonEuclidean/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>/Users/aleksandrovich/Documents/Unity/Noneuclidean/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>/Users/aleksandrovich/Documents/Unity/NonEuclidean/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

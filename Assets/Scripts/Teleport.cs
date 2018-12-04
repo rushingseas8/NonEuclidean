@@ -17,7 +17,7 @@ public class Teleport : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (transform.position.x > startPoint.position.x && transform.position.x < targetPoint.position.x) {
+        if (transform.position.x > startPoint.position.x - 0.5f && transform.position.x < targetPoint.position.x) {
             transform.position = targetPoint.position;
         }
 	}
