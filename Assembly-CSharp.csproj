@@ -63,10 +63,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Controller.cs" />
     <Compile Include="Assets\Scripts\InverseDoorway.cs" />
+    <Compile Include="Assets\Scripts\Portal.cs" />
     <Compile Include="Assets\Scripts\Teleport.cs" />
-    <None Include="Assets\NewUnlitShader.shader" />
-    <None Include="Assets\Perspective2.shader" />
-    <None Include="Assets\Perspective.shader" />
+    <None Include="Assets\Resources\Shaders\Perspective.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/aleksandrovich/Documents/Unity/NonEuclidean/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
