@@ -27,8 +27,8 @@ public class Portal : MonoBehaviour {
     /// object's Transform as-is. If true, we pretend the attached object has
     /// an identity Transform instead of a rotated one.
     /// </summary>
-    //[SerializeField]
-    //private bool NormalizeTransform = false;
+    [SerializeField]
+    private bool ShouldRotate = false;
 
     private GameObject childObject;
 
@@ -141,10 +141,14 @@ public class Portal : MonoBehaviour {
             //other.transform.rotation *= (Destination.transform.rotation * Quaternion.Inverse(transform.rotation));
 
             Quaternion offset = Quaternion.AngleAxis(180, Vector3.up) * Destination.transform.rotation * Quaternion.Inverse(transform.rotation);
-            Debug.Log("Rotating by " + offset.eulerAngles);
-            //MainCamera.transform.rotation = MainCamera.transform.rotation * (transform.rotation * Quaternion.Inverse(Destination.transform.rotation));
-            //MainCamera.transform.rotation *= transform.rotation * Quaternion.Inverse(Destination.transform.rotation);
-            MainCamera.transform.rotation = offset * MainCamera.transform.rotation;
+
+            if (ShouldRotate)
+            {
+                Debug.Log("Rotating by " + offset.eulerAngles);
+                //MainCamera.transform.rotation = MainCamera.transform.rotation * (transform.rotation * Quaternion.Inverse(Destination.transform.rotation));
+                //MainCamera.transform.rotation *= transform.rotation * Quaternion.Inverse(Destination.transform.rotation);
+                MainCamera.transform.rotation = offset * MainCamera.transform.rotation;
+            }
 
             Destination.shouldTeleport = false;
             this.shouldTeleport = true;
