@@ -18,7 +18,7 @@ public class Portal : MonoBehaviour {
     /// The Portal we're connected to.
     /// </summary>
     [SerializeField]
-    private Transform Destination;
+    private Portal Destination;
 
     private static readonly Quaternion _mirror = Quaternion.AngleAxis(180, Vector3.forward) * Quaternion.AngleAxis(180, Vector3.left);
 
@@ -27,17 +27,18 @@ public class Portal : MonoBehaviour {
     /// object's Transform as-is. If true, we pretend the attached object has
     /// an identity Transform instead of a rotated one.
     /// </summary>
-    [SerializeField]
-    private bool NormalizeTransform = false;
+    //[SerializeField]
+    //private bool NormalizeTransform = false;
 
     private GameObject childObject;
 
     // A camera we create for the render texture.
     private Camera renderCamera;
-
     private RenderTexture renderTexture;
     private Material renderMaterial;
     private static Shader portalShader;
+
+    private bool shouldTeleport = true;
 
 	// Use this for initialization
 	void Start () {
@@ -62,10 +63,13 @@ public class Portal : MonoBehaviour {
         // Don't render portals (or else things don't look great!)
         renderCamera.cullingMask &= ~LayerMask.GetMask("Portal");
 
+
         // TODO make this size adaptive based on screen size + player distance from this portal
         // (can also completely stop rendering if player faces away from the object, i.e. the angle from
         // MainCamera.transform.forward to (transform.position - player.position) > 180)
         renderTexture = new RenderTexture(1024, 1024, 0, RenderTextureFormat.ARGB32);
+        renderTexture.antiAliasing = 8;
+        
         renderCamera.forceIntoRenderTexture = true;
         renderCamera.targetTexture = renderTexture;
 
@@ -88,38 +92,75 @@ public class Portal : MonoBehaviour {
         Vector3 cameraPositionInSourceSpace;
         Quaternion cameraRotationInSourceSpace;
 
-        if (!NormalizeTransform)
-        {
-            //Vector3 mainCameraFlipped = new Vector3(-MainCamera.transform.position.x, MainCamera.transform.position.y, -MainCamera.transform.position.z);
-
-            cameraPositionInSourceSpace = transform.InverseTransformPoint(MainCamera.transform.position);
-            cameraRotationInSourceSpace = Quaternion.Inverse(transform.rotation) * MainCamera.transform.rotation;
-        }
-        else
-        {
-            cameraPositionInSourceSpace = transform.InverseTransformPoint(MainCamera.transform.position);
-            cameraRotationInSourceSpace = MainCamera.transform.rotation;
-        }
+        cameraPositionInSourceSpace = transform.InverseTransformPoint(MainCamera.transform.position);
+        cameraRotationInSourceSpace = Quaternion.Inverse(transform.rotation) * MainCamera.transform.rotation;
 
         //cameraPositionInSourceSpace = new Vector3(cameraPositionInSourceSpace.x, -cameraPositionInSourceSpace.y, cameraPositionInSourceSpace.z);
 
         // Pretend for a moment the portal is facing the opposite direction
-        Destination.Rotate(Vector3.forward, 180);
+        Destination.transform.Rotate(Vector3.forward, 180);
 
-        renderCamera.transform.position = Destination.TransformPoint(cameraPositionInSourceSpace);
-        renderCamera.transform.rotation = Destination.rotation * cameraRotationInSourceSpace;
+        renderCamera.transform.position = Destination.transform.TransformPoint(cameraPositionInSourceSpace);
+        renderCamera.transform.rotation = Destination.transform.rotation * cameraRotationInSourceSpace;
 
         // Make sure we don't actually keep it that way, though
-        Destination.Rotate(Vector3.forward, -180);
+        Destination.transform.Rotate(Vector3.forward, -180);
 
     }
 
-    private bool done = false;
     private void OnTriggerEnter(Collider other)
     {
-        if (done) return;
-        other.transform.position = Destination.position - new Vector3(0f, 4, 0);
-        done = true;
+        // Technically this should be a property of the colliding object; after being
+        // teleported, they shouldn't teleport again until they leave a portal zone.
+        // This is a shortcut allowing only the player to teleport. If many objects should
+        // also teleport, then make this a per-object property (Teleportable?).
+        if (!shouldTeleport)
+        {
+            return;
+        }
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit)) {
+            //Debug.Log("Contact point: " + hit.point);
+            //Vector3 localPos = transform.InverseTransformPoint(hit.point);
+            //Debug.Log("Local contact: " + localPos);
+
+            Vector3 closestPos = other.ClosestPoint(transform.position);
+            Vector3 flipped = new Vector3(closestPos.x, -closestPos.y, -closestPos.z);
+
+
+            Vector3 dest = Destination.transform.position;
+            float destY = dest.y;
+            //dest = new Vector3(dest.x, 0, dest.z);
+            Vector3 src = transform.position;
+            float srcY = src.y;
+
+            Debug.Log("Moved by " + (dest - src));
+            //other.transform.position = Destination.transform.InverseTransformPoint(closestPos);
+            other.transform.position += dest - src;//dest - (flipped - src);
+            //other.transform.rotation *= (Destination.transform.rotation * Quaternion.Inverse(transform.rotation));
+
+            Quaternion offset = Quaternion.AngleAxis(180, Vector3.up) * Destination.transform.rotation * Quaternion.Inverse(transform.rotation);
+            Debug.Log("Rotating by " + offset.eulerAngles);
+            //MainCamera.transform.rotation = MainCamera.transform.rotation * (transform.rotation * Quaternion.Inverse(Destination.transform.rotation));
+            //MainCamera.transform.rotation *= transform.rotation * Quaternion.Inverse(Destination.transform.rotation);
+            MainCamera.transform.rotation = offset * MainCamera.transform.rotation;
+
+            Destination.shouldTeleport = false;
+            this.shouldTeleport = true;
+
+            //Debug.Log(other.ClosestPointOnBounds(transform.position));
+            //Debug.Log(other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position));
+        }
+
+
+        //other.transform.position = Destination.transform.position - new Vector3(0f, 4, 0);
+        //shouldTeleport = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        this.shouldTeleport = true;
     }
 
     // Ensures that the settings of our custom rendering camera match the main 
