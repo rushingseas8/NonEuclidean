@@ -7,7 +7,7 @@ using UnityEngine;
 /// Allows for flight mode and walking around on a surface.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
-public class Controller : MonoBehaviour {
+public class Controller_ : MonoBehaviour {
 
     [SerializeField]
     private bool flyingMode = true;

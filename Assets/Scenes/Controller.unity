@@ -113,6 +113,80 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &333895429
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400002, guid: 06cf7e4ec71ee4b228a1a6f9d06d2b5b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 06cf7e4ec71ee4b228a1a6f9d06d2b5b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 06cf7e4ec71ee4b228a1a6f9d06d2b5b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 06cf7e4ec71ee4b228a1a6f9d06d2b5b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 06cf7e4ec71ee4b228a1a6f9d06d2b5b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 06cf7e4ec71ee4b228a1a6f9d06d2b5b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 06cf7e4ec71ee4b228a1a6f9d06d2b5b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 06cf7e4ec71ee4b228a1a6f9d06d2b5b, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 06cf7e4ec71ee4b228a1a6f9d06d2b5b, type: 3}
+  m_IsPrefabAsset: 0
+--- !u!1 &333895430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100002, guid: 06cf7e4ec71ee4b228a1a6f9d06d2b5b,
+    type: 3}
+  m_PrefabInternal: {fileID: 333895429}
+--- !u!65 &333895431
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 333895430}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!54 &333895432
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 333895430}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1 &396244032
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,14 +499,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1665219074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01ca501bb7e7d436c8cc4202e79244c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 467435f71ff5e443980af76294d9449d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyingMode: 0
+  AttachedCamera: {fileID: 396244034}
   movementScale: 5
   rotationScale: 5
   jumpHeight: 2
-  mainCamera: {fileID: 396244034}
+  MaxZoom: 1.5
+  TimeToZoom: 0.2
 --- !u!54 &1665219080
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -440,11 +515,11 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1665219074}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 70
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
