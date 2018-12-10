@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Controller2 : MonoBehaviour
+public class Controller : MonoBehaviour
 {
     #region Public fields
     [Tooltip("The camera that this controller will control.")]
@@ -42,7 +42,7 @@ public class Controller2 : MonoBehaviour
     private bool grounded = false;
 
     // Used for determining current status of jump.
-    private Vector3 jumpVelocity;
+    private int jumpCooldown;
 
     // The normal vector of the ground; or up, if not on the ground.
     private Vector3 normal;
@@ -174,7 +174,7 @@ public class Controller2 : MonoBehaviour
 
         // Force the grounded property to be true, and reset our jump status
         grounded = true;
-        jumpVelocity = Vector3.zero;
+        //jumpVelocity = Vector3.zero;
     }
 
     private void OnCollisionExit(Collision collision)
@@ -192,26 +192,20 @@ public class Controller2 : MonoBehaviour
         // Up/down motion (flying or jump/crouch)
         float jump = Input.GetAxis("Jump");
 
-        // Determine whether or not we're jumping. If we are, then update the
-        // estimate of how long until we stop jumping.
-        bool jumping;
-        if (jumpVelocity.magnitude > 0.5f)
-        {
-            jumpVelocity += Time.deltaTime * -9.8f * Vector3.up;
-            jumping = true;
+        // Update cooldown; update "jumping" to reflect if we're off cooldown or not.
+        if (jumpCooldown > 0) {
+            jumpCooldown--;
         }
-        else
-        {
-            jumpVelocity = Vector3.zero;
-            jumping = false;
-        }
+        bool jumping = jumpCooldown > 0;
 
         // If we have a jump request, and we're on the ground, and we're not
         // already jumping, then make the character jump up.
         if (jump > 0 && grounded && !jumping)
         {
-            jumpVelocity = Vector3.up * Mathf.Sqrt(2f * 9.8f * jumpHeight);
-            body.AddForce(jumpVelocity * body.mass, ForceMode.Impulse);
+            body.AddForce(Vector3.up * Mathf.Sqrt(2f * 9.8f * jumpHeight) * body.mass, ForceMode.Impulse);
+
+            // Add 0.5 seconds to the cooldown so we avoid double jumping
+            jumpCooldown = (int)(0.5f / Time.fixedDeltaTime);
         }
     }
 }
