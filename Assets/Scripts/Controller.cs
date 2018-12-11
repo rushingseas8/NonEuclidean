@@ -9,6 +9,9 @@ public class Controller : MonoBehaviour
     [Tooltip("The camera that this controller will control.")]
     public Camera AttachedCamera;
 
+    [Tooltip("How tall is the player, in meters?")]
+    public float playerHeight = 1.74f;
+
     [Tooltip("How fast does the controller move, in meters per second?")]
     public float movementScale = 5f;
 
@@ -23,6 +26,10 @@ public class Controller : MonoBehaviour
 
     [Tooltip("How long does it take to zoom fully in or out? In seconds.")]
     public float TimeToZoom = 0.2f;
+
+    [Tooltip("If true, we can only jump on GameObjects with a tag containing \"Floor\".")]
+    public bool RespectFloorTags = false;
+
     #endregion
 
     #region Private fields
@@ -61,7 +68,7 @@ public class Controller : MonoBehaviour
     private float yaw;
 
     // The camera isn't at the exact center of the gameobject- it's a bit up
-    private Vector3 cameraOffset = Vector3.up;
+    private Vector3 cameraOffset;
 
     #endregion
 
@@ -73,6 +80,9 @@ public class Controller : MonoBehaviour
 
         body.freezeRotation = true;
         body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
+        gameObject.transform.localScale = playerHeight / 2f * Vector3.one;
+        cameraOffset = playerHeight / 2f * Vector3.up;
     }
 
     // Update is called once per frame
@@ -146,19 +156,22 @@ public class Controller : MonoBehaviour
     // the normal is the average of the normals found. Else, we're flying.
     private void ComputeNormal()
     {
+        this.grounded = false;
+        this.normal = Vector3.up;
+
         RaycastHit hit;
         if (Physics.Raycast(gameObject.transform.position, -gameObject.transform.up, out hit))
         {
-            if (hit.distance <= 1f + groundDelta)
+            if (hit.distance <= (playerHeight / 2f) + groundDelta)
             {
-                this.grounded = true;
-                this.normal = hit.normal;
+                // If we should respect floor tags, then check for that first
+                // Else, any collider is valid.
+                if (!RespectFloorTags || (RespectFloorTags && hit.collider.gameObject.tag.Equals("Floor")))
+                {
+                    this.grounded = true;
+                    this.normal = hit.normal;
+                }
             }
-        }
-        else
-        {
-            this.grounded = false;
-            this.normal = Vector3.up;
         }
     }
 
@@ -173,8 +186,7 @@ public class Controller : MonoBehaviour
         ComputeNormal();
 
         // Force the grounded property to be true, and reset our jump status
-        grounded = true;
-        //jumpVelocity = Vector3.zero;
+        //grounded = true;
     }
 
     private void OnCollisionExit(Collision collision)
@@ -183,7 +195,7 @@ public class Controller : MonoBehaviour
         ComputeNormal();
 
         // We know we're not on the ground
-        grounded = false;
+        //grounded = false;
     }
 
     // Updated once per physics step.

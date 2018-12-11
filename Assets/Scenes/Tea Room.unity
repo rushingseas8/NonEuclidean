@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -435,6 +435,20 @@ Prefab:
       propertyPath: movementScale
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4375270265442608, guid: 03869f5e16acc40038c39ab34dbed221, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 114388076962450840, guid: 03869f5e16acc40038c39ab34dbed221,
+        type: 2}
+      propertyPath: playerHeight
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114388076962450840, guid: 03869f5e16acc40038c39ab34dbed221,
+        type: 2}
+      propertyPath: OnlyJumpOnFloorTaggedObjects
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03869f5e16acc40038c39ab34dbed221, type: 2}
   m_IsPrefabAsset: 0
@@ -729,7 +743,7 @@ GameObject:
   - component: {fileID: 1350145333}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -895,7 +909,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4866307182162448, guid: 133f892a1e48c4a4c94fc398e841d92c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4866307182162448, guid: 133f892a1e48c4a4c94fc398e841d92c, type: 2}
       propertyPath: m_LocalPosition.y
@@ -903,7 +917,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4866307182162448, guid: 133f892a1e48c4a4c94fc398e841d92c, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.006
+      value: -0.82900006
       objectReference: {fileID: 0}
     - target: {fileID: 4866307182162448, guid: 133f892a1e48c4a4c94fc398e841d92c, type: 2}
       propertyPath: m_LocalRotation.x
@@ -932,6 +946,10 @@ Prefab:
     - target: {fileID: 4866307182162448, guid: 133f892a1e48c4a4c94fc398e841d92c, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4866307182162448, guid: 133f892a1e48c4a4c94fc398e841d92c, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 133f892a1e48c4a4c94fc398e841d92c, type: 2}
@@ -1134,15 +1152,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4665084037076056, guid: dc75dabdf295444159b7319d2aba7fd1, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.025
+      value: 1.335
       objectReference: {fileID: 0}
     - target: {fileID: 4665084037076056, guid: dc75dabdf295444159b7319d2aba7fd1, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.35
+      value: -0.295
       objectReference: {fileID: 0}
     - target: {fileID: 4665084037076056, guid: dc75dabdf295444159b7319d2aba7fd1, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.008892832
       objectReference: {fileID: 0}
     - target: {fileID: 4665084037076056, guid: dc75dabdf295444159b7319d2aba7fd1, type: 2}
       propertyPath: m_LocalRotation.y
@@ -1154,7 +1172,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4665084037076056, guid: dc75dabdf295444159b7319d2aba7fd1, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9999605
       objectReference: {fileID: 0}
     - target: {fileID: 4665084037076056, guid: dc75dabdf295444159b7319d2aba7fd1, type: 2}
       propertyPath: m_RootOrder
@@ -1163,6 +1181,10 @@ Prefab:
     - target: {fileID: 1171491669485060, guid: dc75dabdf295444159b7319d2aba7fd1, type: 2}
       propertyPath: m_Name
       value: Tea Cup (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665084037076056, guid: dc75dabdf295444159b7319d2aba7fd1, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 1.019
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc75dabdf295444159b7319d2aba7fd1, type: 2}
