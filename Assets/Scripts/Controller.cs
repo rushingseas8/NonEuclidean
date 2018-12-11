@@ -27,7 +27,7 @@ public class Controller : MonoBehaviour
     [Tooltip("How long does it take to zoom fully in or out? In seconds.")]
     public float TimeToZoom = 0.2f;
 
-    [Tooltip("If true, we can only jump on GameObjects with a tag containing \"Floor\".")]
+    [Tooltip("If true, we can only jump off of GameObjects with a \"Floor\" tag.")]
     public bool RespectFloorTags = false;
 
     #endregion
