@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        StartCoroutine(LoadScene());
-	}
+        //StartCoroutine(LoadScene());
+    }
 
     private IEnumerator LoadScene() {
 

@@ -63,6 +63,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Controller.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Graph\Edge.cs" />
+    <Compile Include="Assets\Scripts\Graph\GraphController.cs" />
+    <Compile Include="Assets\Scripts\Graph\Vertex.cs" />
     <Compile Include="Assets\Scripts\InverseDoorway.cs" />
     <Compile Include="Assets\Scripts\Portal.cs" />
     <Compile Include="Assets\Scripts\Teleport.cs" />
