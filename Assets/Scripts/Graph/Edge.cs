@@ -18,7 +18,7 @@ public class Edge : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        transform.position = (Begin.transform.position + End.transform.position) / 2f - Vector3.back;
+        transform.position = (Begin.transform.position + End.transform.position) / 2f;
         transform.localScale = new Vector3(0.1f, 7 * (End.transform.position - Begin.transform.position).magnitude, 1f);
         transform.rotation = Quaternion.FromToRotation(Vector3.up, End.transform.position - Begin.transform.position);
 	}

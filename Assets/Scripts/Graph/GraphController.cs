@@ -42,23 +42,6 @@ public class GraphController : MonoBehaviour
         // Choice of x^0.25 is arbitrary; we want to squish all values down,
         // and values close to 0 closer down to make the useful range larger.
         actualDamper = Mathf.Sqrt(Mathf.Sqrt(1 - Damper));
-
-
-        //Vertex v0 = this.AddVertex(Vector3.zero);
-        //Vertex v1 = this.AddVertex(new Vector3(1, 1, 0));
-        //Vertex v2 = this.AddVertex(new Vector3(-2, 2, 0));
-        //Vertex v3 = this.AddVertex(new Vector3(-2, -2, 0));
-
-        //// 3-cycle
-        //this.Connect(v0, v1);
-        //this.Connect(v1, v2);
-        //this.Connect(v2, v0);
-
-        //// Connect one vertex to two others
-        //this.Connect(v3, v0);
-        //this.Connect(v3, v1);
-
-
     }
 
     public void Start() {
@@ -70,7 +53,7 @@ public class GraphController : MonoBehaviour
                 if (vertices.Count == 1) {
                     vertices[0].Sleeping = true;
                     vertices[0].SetColor(Color.red);
-                    Camera.main.transform.position = vertices[0].transform.position + Vector3.back;
+                    //Camera.main.transform.position = vertices[0].transform.position + Vector3.back;
                 }
             }
             else
